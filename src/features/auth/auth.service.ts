@@ -9,7 +9,6 @@ async function registerUser({ email, name, password }: RegisterPayload) {
 
   const passwordHash = await bcrypt.hash(password, await bcrypt.genSalt(12));
 
-  console.log(passwordHash);
   try {
     const user = new Users({
       email,
