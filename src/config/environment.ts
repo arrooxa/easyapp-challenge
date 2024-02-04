@@ -6,7 +6,9 @@ export const dotenvConfig = dotenv.config({ path: `${process.cwd()}/config.env` 
 export function validateEnvironmentVariables() {
   const envVarsSchema = Joi.object()
     .keys({
-      DB_URI: Joi.string().required().description("Database URI to Connection"),
+      DB_USER: Joi.string().required().description("Database User to Connection"),
+      DB_PASSWORD: Joi.string().required().description("Database Password to Connection"),
+      JWT_SECRET: Joi.string().required().description("Secret to JWT Tokens"),
     })
     .unknown();
 
