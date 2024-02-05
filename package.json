@@ -5,7 +5,7 @@
   "main": "server.ts",
   "scripts": {
     "dev": "nodemon -L",
-    "start": "npm run build && node dist/server.js",
+    "start": "npm run build && npx copyfiles -u 1 src/**/*.pug dist/src && node dist/server.js",
     "build": "tsc && tsc-alias"
   },
   "keywords": [],
@@ -30,6 +30,7 @@
     "@types/pug": "^2.0.10",
     "@typescript-eslint/eslint-plugin": "^6.20.0",
     "@typescript-eslint/parser": "^6.20.0",
+    "copyfiles": "^2.4.1",
     "eslint": "^8.56.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.1.3",

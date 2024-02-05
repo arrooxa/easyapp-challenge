@@ -1,0 +1,19 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: easyapp-api
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: easyapp-api
+  template:
+    metadata:
+      labels:
+        app: easyapp-api
+    spec:
+      containers:
+        - name: easyapp-api
+          image: "arrooxa/easyapp-api:latest"
+          ports:
+            - containerPort: 80
