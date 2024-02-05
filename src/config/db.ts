@@ -1,7 +1,9 @@
 import mongoose from "mongoose";
 
 export default function connectDB() {
-  const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.9e15erw.mongodb.net/?retryWrites=true&w=majority`;
+  const { DB_USER, DB_PASSWORD, DB_CLUSTER } = process.env;
+
+  const uri = `mongodb+srv://${DB_USER}:${DB_PASSWORD}@${DB_CLUSTER}.mongodb.net/?retryWrites=true&w=majority`;
 
   try {
     mongoose.connect(uri);

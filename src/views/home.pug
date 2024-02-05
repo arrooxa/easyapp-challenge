@@ -1,0 +1,27 @@
+extends layout.pug
+block content
+    script.
+      document.addEventListener('DOMContentLoaded', async () => {
+        const token = localStorage.getItem("token")
+        const welcome = document.querySelector("#welcome")
+
+        try{
+            const getUser = await fetch("/user", {
+                method: "GET",
+                headers: {
+                  'Accept': 'application/json',
+                  'Content-Type': 'application/json',
+                  'Authorization': `Bearer ${token}`
+                },
+            })
+
+            if(getUser.status !== 200) return window.location.href = '/pug';
+
+            const {name} = await getUser.json()
+
+            welcome.innerHTML = `Bem-vindo, ${name}!`
+        }catch(err){
+            console.error(err)
+        }
+      });
+    p(id="welcome")

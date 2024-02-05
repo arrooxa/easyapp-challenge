@@ -1,17 +1,17 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
     "module": "commonjs",
     "esModuleInterop": true,
-    "target": "es2021",
+    "target": "ES6",
     "moduleResolution": "node",
     "sourceMap": true,
     "outDir": "dist",
     "paths": {
       "@src/*": ["./src/*"]
-    },
-    "typeRoots": ["./types"]
+    }
   },
   "lib": ["es2021"],
-  "include": ["src/**/*"],
+  "include": ["server.ts", "src/**/*"],
   "exclude": ["node_modules"],
 }

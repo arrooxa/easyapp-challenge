@@ -8,6 +8,7 @@ export function validateEnvironmentVariables() {
     .keys({
       DB_USER: Joi.string().required().description("Database User to Connection"),
       DB_PASSWORD: Joi.string().required().description("Database Password to Connection"),
+      DB_CLUSTER: Joi.string().required().description("Database Cluster to Connection"),
       JWT_SECRET: Joi.string().required().description("Secret to JWT Tokens"),
     })
     .unknown();

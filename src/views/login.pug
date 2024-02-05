@@ -1,0 +1,49 @@
+extends layout.pug
+block content
+    script.
+      async function handleLoginResponse(event) {
+        event.preventDefault()
+
+        const data = new FormData(event.target)
+
+        const email = data.get("email")
+
+        const password = data.get("password")
+
+        const errorMessage = document.querySelector("#error-message")
+
+        try{
+          const login = await fetch("/auth/login", {
+            method: "POST",
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({email, password}),
+          });
+
+          if(login.status !== 200) return errorMessage.innerHTML = (await login.json()).error
+
+          const {token} = await login.json()
+
+          localStorage.setItem("token", token);
+
+          window.location.href = '/pug/home';
+        }catch(err){
+            console.error(err)
+        }
+      } 
+      
+    form(onsubmit='handleLoginResponse(event)')
+      h1 Login
+      
+      label(for='email') Email:
+      input(type='email', id='email', name='email', required, placeholder="steve@jobs.com")
+      
+      label(for='password') Password:
+      input(type='password', id='password', name='password', required, placeholder="*******")
+      
+      button(type='submit') Login
+      p(class="sign-up") Don't have an account? 
+        a(href="/pug/register") Sign Up
+      p(id="error-message")

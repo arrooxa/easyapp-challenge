@@ -1,0 +1,48 @@
+extends layout.pug
+block content
+    script.
+      async function handleRegisterResponse(event) {
+        event.preventDefault()
+
+        const data = new FormData(event.target)
+
+        const email = data.get("email")
+
+        const name = data.get("name")
+
+        const password = data.get("password")
+        
+        const errorMessage = document.querySelector("#error-message")
+
+        try{
+          const register = await fetch("/auth/register", {
+            method: "POST",
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({name, email, password}),
+          });
+
+          if(register.status !== 200) return errorMessage.innerHTML = (await register.json()).error
+
+          window.location.href = '/pug/';
+        }catch(err){
+            console.error(err)
+        }
+      } 
+      
+    form(onsubmit='handleRegisterResponse(event)')
+      h1 Register
+
+      label(for='name') Nome:
+      input(type='name', id='name', name='name', required, placeholder="Steve Jobs")
+      
+      label(for='email') Email:
+      input(type='email', id='email', name='email', required, placeholder="steve@jobs.com")
+      
+      label(for='password') Password:
+      input(type='password', id='password', name='password', required, placeholder="*******")
+      
+      button(type='submit') Register
+      p(id="error-message")
